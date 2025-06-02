@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}{% block title %}Всё по теме {{messages[0].topic}}{% endblock %}{% endblock %}
+
+{% block content %}
+    {% for message in messages %}
+        <div id="tight-block">
+            <h1>{{message.from_user}} -> {{message.to_user}}:</h1>
+            <h3>{{message.data}}</h3>
+
+            <p></p>
+        </div>
+    {% endfor %}
+{% endblock %}

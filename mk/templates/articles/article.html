@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block title %}{{title}}{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <div class="page-wrapper">
+        {{article|safe}} 
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <p><a href="/articles/article?article={{title}}&construct=1">Edit In Place</a></p>
+    <p><a href="/users/getuser?username={{last_edit_by}}">Последний редактор: {{last_edit_by}}</a></p>
+    <p><a href="/articles/commits?article={{title}}">История изменений статьи</a></p>
+    {% if g.user["admin"] %}
+        <p><a href="/articles/delete?article={{title}}">Удалить статью (Осторожно! Действие необратимо!)</a></p>
+    {% endif %}
+{% endblock %}

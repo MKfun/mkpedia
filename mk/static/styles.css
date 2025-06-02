@@ -1,0 +1,222 @@
+/* Базовая тёмная тема */
+:root {
+    --bg-color: #121212;
+    --header-bg: #1e1e1e;
+    --footer-bg: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #0d6efd;
+    --danger-color: #dc3545;
+    --border-color: #2c2c2c;
+    --transition: 0.3s ease;
+}
+
+body {
+  background-color: #0d0d0d;
+  color: #e0e0e0;
+  font-family: "Segoe UI", sans-serif;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* Шапка */
+#hat {
+    background-color: var(--header-bg);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+#hat a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    transition: color var(--transition);
+}
+
+#hat a::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+#hat a:hover {
+    color: var(--accent-color);
+}
+
+#hat a:hover::after {
+    width: 100%;
+}
+
+/* Контент */
+body > *:not(header):not(footer) {
+    flex: 1;
+    padding: 2rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--footer-bg);
+    padding: 1rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+/* Формы */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #1c1c1c;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+form:hover {
+    transform: scale(1.01);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+form input, form select, form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #2a2a2a;
+    color: var(--text-color);
+    transition: border-color var(--transition), background var(--transition);
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    border-color: var(--accent-color);
+    background: #1e1e1e;
+    outline: none;
+}
+
+form button {
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background var(--transition);
+}
+
+form button:hover {
+    background: #0b5ed7;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    #hat {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    body > *:not(header):not(footer) {
+        padding: 1rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
+}
+
+/* Общий стиль для заголовков h1-h5 */
+h1, h2, h3, h4, h5 {
+    padding-left: 12px; 
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Цвета для каждого заголовка */
+h1 {
+    border-color: #0dcaf0; /* info - голубой */
+    color: #0dcaf0;
+}
+
+h2 {
+    border-color: #198754; /* success - зелёный */
+    color: #198754;
+}
+
+h3 {
+    border-color: #ffc107; /* warning - жёлтый */
+    color: #ffc107;
+}
+
+h4 {
+    border-color: #dc3545; /* danger - красный */
+    color: #dc3545;
+}
+
+h5 {
+    border-color: #6f42c1; /* note - фиолетовый */
+    color: #c8b6ff;
+}
+
+p {
+    margin: 0.1rem 0;
+    line-height: 1.4;
+}
+
+/* === Контейнер редактора === */
+#editor-container {
+    height: 143vh;
+    width: 100%;
+    position: relative;
+    margin-bottom: 2em;
+}
+
+#editor {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+/* === Мобильная адаптация для редактора === */
+@media (max-width: 768px) {
+    #editor-container {
+        height: auto;
+        min-height: 70vh;
+        margin-bottom: 1.5em;
+    }
+
+    #editor {
+        position: relative;
+        height: 60vh;
+        font-size: 0.95rem;
+    }
+}
+
+#tight-block {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 1rem;
+}

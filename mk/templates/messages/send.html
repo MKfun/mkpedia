@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block header %}{% block title %}Отправить{% endblock %}{% endblock %}
+
+{% block content %}
+    <form method="post" {% if answering_to is defined %}action="/messages/send?answering_to={{answering_to.msgid}}"{% endif %}>
+        <label for="to_user">Кому:</label>
+        <input name="to_user" id="to_user">
+
+        <label for="topic">Тема</label>
+        <input name="topic" id="topic">
+
+        <label for="data">Текст</label>
+        <textarea name="data" id="data" rows="4" cols="50"></textarea>
+
+        <button type="submit">Отправить</button>
+    </form>
+
+    <h4>При вводе неправильного ника в поле "Кому" письмо без каких-либо ошибок затеряется, будьте внимательны!</h4>
+{% endblock %}
+
+{% if answering_to is defined %}
+    {% block script %}
+        window.addEventListener("load", () => {
+            document.getElementById("topic").value = "{{answering_to.topic}}";
+            document.getElementById("to_user").value = "{{answering_to.from_user}}";
+        });
+    {% endblock %}
+{% endif %}

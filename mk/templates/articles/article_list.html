@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Список статей{% endblock %}
+
+{% block content %}
+    {% for i in article_list %}
+        <div class="articleref">
+            <a href="/articles/article?article={{i['title']}}">{{i["title"]}}</a>
+        </div>
+    {% endfor %}
+{% endblock %}

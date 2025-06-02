@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Я{% endblock %}
+
+{% block content %}
+    <h1>Вы</h1>
+    <h4>
+        Имя пользователя: {{user["username"]}}<br/>
+        Совершено {{user["commit_n"]}} правка/ок<br/>
+        Ваше описание: {{user["profile_description"]}}<br/>
+        <form method="POST" action="/users/setdescription">
+            <label for="description">Изменить описание профиля</label>
+            <input name="description" id="description">
+            <button type="submit">Изменить</button>
+        </form>
+    </h4>
+{% endblock %}

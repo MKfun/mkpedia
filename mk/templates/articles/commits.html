@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block title %}История коммитов статьи "{{article["title"]}}"{% endblock %}
+{% endblock %}
+
+{% block content %}
+    {% for i in commit_list %}
+    <p>
+    <a href="/articles/getcommit?article={{article['title']}}&n={{loop.index-1}}">Коммит от {{i["last_edit_by"]}} в {{i["editdate"]}}: {{i["comment"]}}</a>
+
+    {% if g.user["admin"] %}
+        <a href="/articles/article?article={{article['title']}}&n={{loop.index-1}}&raw_body=1">Скачать HTML</a>
+        <a href="/articles/article?article={{article['title']}}&construct=1&n={{loop.index-1}}">Откатить до этой версии</a>
+    {% endif %}
+
+    </p>
+    {% endfor %}
+{% endblock %}

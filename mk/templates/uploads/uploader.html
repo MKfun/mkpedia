@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block title %}Загрузка файла{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <form method=post enctype=multipart/form-data>
+        <label for=file>Файл (.png, .jpg или .gif до 50 мБ.)</label>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
+{% endblock %}

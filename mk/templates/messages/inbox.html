@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block header %}{% block title %}Входящие{% endblock %}{% endblock %}
+
+{% block content %}
+    <h1>Ваша почта</h1>
+
+    {% for message in inbox %}
+        <p><a href="/messages/showmessage?msgid={{message.msgid}}">{{message.topic}}</a></p>
+    {% endfor %}
+{% endblock %}

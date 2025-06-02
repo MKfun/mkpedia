@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block title %}Файл загружен{% endblock %}
+{% endblock %}
+
+{% block content %}
+    <img src={{ img_src }}></img>
+    <h3>Скачивайте свой файл по ссылке {{ img_src }}</h3>
+{% endblock %}

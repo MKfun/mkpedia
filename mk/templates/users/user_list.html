@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% block title %}Список пользователей{% endblock %}
+{% endblock %}
+
+{% block content %}
+    {% if g.user["admin"] %}
+        <h3>Управление комнатой ожидания вступления находится не тут, а <a href="/admin/panel">тут</a>, кнопки управления разрешениями НЕ видны рядовым юзерам.<h3>
+    {% endif %}
+
+    {% for user in users %}
+        <p>
+            <a href="/users/getuser?username={{user['username']}}">{{user["username"]}} {% if user["admin"] %}(администратор){% endif %}</a>
+            {% if g.user["admin"] %}
+                {% if not user["username"] == "root" %}
+                    {% if user["admin"] %}
+                        <a href="/users/demote?username={{user['username']}}">Снять</a>
+                    {% else %}
+                        <a href="/users/promote?username={{user['username']}}">Назначить администратором</button>
+                    {% endif %}
+
+                    <a href="/users/delete?username={{user['username']}}">УДАЛИТЬ</a>
+                {% endif %}
+            {% endif %}
+        </p>
+    {% endfor %}
+{% endblock %}

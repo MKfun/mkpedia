@@ -1,0 +1,47 @@
+<!doctype html>
+<title>Конструктор статей</title>
+<link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
+
+<body> 
+    <div id="editor-container">
+        <div id="editor">HTML статьи...</div>
+    </div>
+
+    <div id="form-container">
+        <form method="post" action="/articles/constructor">
+            <label for="title">Название статьи</label>
+            <input name="title" id="title"></input>
+
+            <p></p>
+
+            <input name="data" id="data" type="hidden">  
+
+            <label for="comment">Комментарий к изменению</label>
+            <input name="comment" id="comment">
+
+            <p></p>
+
+            <button type="submit">Изменить</button>
+        </form>
+    </div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ext-language_tools.min.js"></script>
+
+<script>
+    let editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.session.setMode("ace/mode/html");
+
+    let title = document.getElementById("title");
+    let data = document.getElementById("data");
+
+    title.value = `{{title}}`;
+
+    editor.session.on("change", () => {data.value = editor.getValue();});
+
+    {% if body is defined %} 
+        editor.setValue(`{{body|safe|replace("`", "'")}}`, -1);
+    {% endif %}
+</script>

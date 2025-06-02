@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block header %}{% block title %}{{message.topic}}{% endblock %}{% endblock %}
+
+{% block content %}
+    <h2>От: {{message.from_user}} Кому: {{message.to_user}}</h2>
+
+    <h2>Тема: {{message.topic}}</h2>
+
+    <h3>{{message.data}}</h3>
+
+    <button onclick="window.location.href = '/messages/send?answering_to={{message.msgid}}'">Ответить</button>
+{% endblock %}
