@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block header %}
-    {% block title %}Вход{% endblock %}
 {% endblock %}
 
 {% block content %}
-    <h3>Если вы ещё не зарегистрированы, кликните <a href="/auth/register">сюда</a>.</h3>
 
     <form method="post">
         <label for="username">Имя пользователя</label>
@@ -16,7 +14,7 @@
         <label for="password">Пароль</label>
         <input name="password" id="password">
 
-        <p></p>
+        <p class="ifnot">Если вы ещё не зарегистрированы, кликните <a href="/auth/register">сюда</a>.</p>
 
         <input type="submit" value="Войти">
     </form>

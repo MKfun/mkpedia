@@ -23,10 +23,11 @@
         <p><a href="/users/getlist">Список пользователей</a></p>
 
         <p><a href="/uploader/upload">Загрузка файлов (для создателей статей)</a></p>
-</ul>
-</div>
+
         {% if g.user and g.user["admin"] %}
             <p><a href="/admin/panel">Админ-панель</a></p>
         {% endif %}
-    {% endblock %}
+</ul>
+</div>
+{% endblock %}
 </body>
