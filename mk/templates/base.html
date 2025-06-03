@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
     <title>{% block title %}{% endblock %}</title>
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
 
     <header>
         <div id="hat">
-            <a href="/">MKPedik</a>
-
-            <img style="width: 33px; height: 43px;" src={{url_for('static', filename='mailbox.png')}} onclick="window.location.href = '/messages/inbox'"></img>
+            <a class="home" href="/">MKPedik</a>
+            <a class="homeicon" href="/"></a>
+            <img class="mail" style="width: 33px; height: 43px;" src={{url_for('static', filename='mailbox.png')}} onclick="window.location.href = '/messages/inbox'" />
 
             {% if g.user %}
-                <a href="/users/getme">{{g.user["username"]}}</a>
-                <a href="/auth/logout">Выход</a>
+                <a class="reg" href="/users/getme">{{g.user["username"]}}</a>
+                <a class="login" href="/auth/logout">Выход</a>
             {% else %}
-                <a href="/auth/register">Регистрация</a>
-                <a href="/auth/login">Вход</a>
+                <a class="reg" href="/auth/register">Регистрация</a>
+                <a class="login" href="/auth/login">Вход</a>
             {% endif %}
         </div>
 
