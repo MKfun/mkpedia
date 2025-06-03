@@ -4,23 +4,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 </head>
 
-<header>
-    {% block header %}
-        {% block title %}"Главная"{% endblock %}
-    {% endblock %}
-</header>
-
 <body>
 {% block content %}
-        <h2>МКПедия.</h2>
+<div class= main>
+        <h2 class="title">МКПедия.</h2>
+        <hr />
         <h3>На данный момент написано {{article_count}} статья/и/ей. Регистрируйтесь и вносите свой вклад!</h3>
-        <h4>Важные ссылки</h4>
+<!--         <h4>Важные ссылки</h4> -->
+</div>
+<div class="links">
+<ul>
         <p><a href="/articles/getlist">Список статей</a></p>
 
         <p><a href="/articles/constructor">Конструктор статей</a></p>
 
-        <p><a href="/auth/register">Регистрация</a></p>
-        <p><a href="/auth/login">Вход</a></p>
 
         <p><a href="/users/getlist">Список пользователей</a></p>
 
@@ -29,5 +26,7 @@
         {% if g.user and g.user["admin"] %}
             <p><a href="/admin/panel">Админ-панель</a></p>
         {% endif %}
-    {% endblock %}
+</ul>
+</div>
+{% endblock %}
 </body>
