@@ -1,0 +1,7 @@
+rm -rf mk/__pycache__/
+rm -rf mk/admin_panel/__pycache__/
+rm -rf mk/articles/__pycache__/
+rm -rf mk/auth/__pycache__/
+rm -rf mk/messages/__pycache__/
+rm -rf mk/random/__pycache__/
+rm -rf mk/uploader/__pycache__/
