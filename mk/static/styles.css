@@ -74,8 +74,12 @@ height: 20px;
     font-family: PS3;
     content: "b ";
 }
-.mail {
+.inbox {
     grid-column: 4;
+    grid-row: 1;
+}
+.send {
+    grid-column: 5;
     grid-row: 1;
 }
 hr {
@@ -125,7 +129,7 @@ a:visited {
 }
 
 .login {
-    grid-column: 5;
+    grid-column: 6;
 }
 #hat a::after {
 content: "";

@@ -9,9 +9,11 @@
         <div id="hat">
             <a class="home" href="/">MKPedik</a>
             <a class="homeicon" href="/"></a>
-            <img class="mail" style="width: 33px; height: 43px;" src={{url_for('static', filename='mailbox.png')}} onclick="window.location.href = '/messages/inbox'" />
 
             {% if g.user %}
+                <img class="inbox" style="width: 33px; height: 43px;" src={{url_for('static', filename='mailbox.png')}} onclick="window.location.href = '/messages/inbox'" />
+                <img class="send" style="width: 33px; height: 43px;" src={{url_for('static', filename='send-icon.png')}} onclick="window.location.href = '/messages/send'"/>
+
                 <a class="reg" href="/users/getme">{{g.user["username"]}}</a>
                 <a class="login" href="/auth/logout">Выход</a>
             {% else %}
