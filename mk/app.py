@@ -15,7 +15,13 @@ from .random import *
 from .messages import *
 
 dotenv.load_dotenv()
-
+def getarticleform(count):
+    if count % 100 in (11, 12, 13, 14): return f"{count} статей"
+    if count % 10 == 1: return f"{count} статья"
+    if count % 10 in (2, 3, 4): return f"{count} статьи"
+    return f"{count} статей"
+    
+    
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(SECRET_KEY=os.getenv("SECRET_KEY"), DATABASE=os.path.join(app.instance_path, "mkpedik.db"), ARTICLE_DIR=os.path.join(app.instance_path, "article_data"))
@@ -43,8 +49,10 @@ def create_app(test_config=None):
 
     @app.route("/")
     def home():
-        return render_template("home.html", article_count=len(get_db().execute("SELECT * FROM articles").fetchall()))
-
+        articlecount = len(get_db().execute("SELECT * FROM articles").fetchall())
+        formatted_count = getarticleform(articlecount)
+        return render_template("home.html", formatted_count=formatted_count)
+        
     return app
 
 app = create_app()
