@@ -3,3 +3,4 @@
 .old/
 __pycache__
 *.db
+instance/
