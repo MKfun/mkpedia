@@ -19,6 +19,9 @@ def register():
         if not username or not password:
             return render_template("error.html", error="Username AND password are required!")
 
+        if len(username) > 32 or len(password) > 32:
+            return render_template("error.html", error="Слишком длинное имя пользователя или пароль!")
+
         try:
             if db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone() is not None or db.execute("SELECT * FROM queue WHERE username = ?", (username,)).fetchone() is not None:
                 return render_template("error.html", error="Имя пользователя уже занято!")
@@ -45,6 +48,9 @@ def login():
 
         if not username or not password:
             return render_template("error.html", error="Username AND password are required!")
+
+        if len(username) > 32 or len(password) > 32:
+            return render_template("error.html", error="Слишком длинное имя пользователя или пароль!")
 
         user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
 
