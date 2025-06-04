@@ -6,9 +6,9 @@
 
 <h2>📷 Скриншоты:</h2>
 
-<img src="https://github.com/TimurSennikov/mkpedia_screenshots/blob/main/main_page_0.png?raw=true" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/TimurSennikov/mkpedia_screenshots/blob/main/main_page_0.png?raw=true" alt="project-screenshot" width="100%" height="100%/">
 
-<img src="https://github.com/TimurSennikov/mkpedia_screenshots/blob/main/login_page_0.png?raw=true" alt="project-screenshot" width="400" height="400/">
+<img src="https://github.com/TimurSennikov/mkpedia_screenshots/blob/main/login_page_0.png?raw=true" alt="project-screenshot" width="100%" height="100%/">
 
   
   
