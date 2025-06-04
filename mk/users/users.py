@@ -24,7 +24,15 @@ def set_admin(v: bool):
     db.commit()
 
     return redirect(url_for("users.user_list"))
-
+    
+    
+def getcommitsform(count):
+    if count % 100 in (11, 12, 13, 14): return f"{count} правок"
+    if count % 10 == 1: return f"{count} правку"
+    if count % 10 in (2, 3, 4): return f"{count} правки"
+    if count == 0: return "правок... 0"
+    return f"{count} правок"
+    
 @user_bp.route("/getlist")
 @user_only
 def user_list():
@@ -42,8 +50,8 @@ def get_user():
     db = get_db()
 
     user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
-
-    return render_template("users/user.html", user=user)
+    formatted_commits = getcommitsform(user["commit_n"])
+    return render_template("users/user.html", user=user, formatted_commits=formatted_commits)
 
 @user_bp.route("/promote")
 @admin_only
