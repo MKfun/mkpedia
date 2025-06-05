@@ -27,7 +27,7 @@ def render_panel():
         root = db.session.execute(db.select(User).filter_by(username="root")).first()
         root.pwdhash = pwdhash
 
-        db.commit()
+        db.session.commit()
 
         session.clear()
 
