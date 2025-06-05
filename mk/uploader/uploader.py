@@ -24,8 +24,6 @@ def storage(filename):
 
     fullp = os.path.join(p, filename)
 
-    print(fullp)
-
     if not os.path.exists(p):
         os.makedirs(p)
         return render_template("not_found.html")

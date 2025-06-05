@@ -3,9 +3,11 @@
 {% block title %}Список статей{% endblock %}
 
 {% block content %}
+<ul class="articlelist">
     {% for i in article_list %}
         <div class="articleref">
-            <a href="/articles/article?article={{i['title']}}">{{i["title"]}}</a>
+            <a href="/articles/article?article={{i.title}}">{{i.title}}</a>
         </div>
     {% endfor %}
+</ul>
 {% endblock %}

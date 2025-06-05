@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <title>{% block title %}{% endblock %}</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}">
-
+    <script type="text/javascript" src="{{url_for('static', filename='tags.js')}}" ></script>
     <header>
         <div id="hat">
             <a class="home" href="/">MKPedik</a>
@@ -14,7 +12,7 @@
                 <img class="inbox" style="width: 33px; height: 43px;" src={{url_for('static', filename='mailbox.png')}} onclick="window.location.href = '/messages/inbox'" />
                 <img class="send" style="width: 33px; height: 43px;" src={{url_for('static', filename='send-icon.png')}} onclick="window.location.href = '/messages/send'"/>
 
-                <a class="reg" href="/users/getme">{{g.user["username"]}}</a>
+                <a class="reg" href="/users/getme">{{g.user.username}}</a>
                 <a class="login" href="/auth/logout">Выход</a>
             {% else %}
                 <a class="reg" href="/auth/register">Регистрация</a>
@@ -26,7 +24,26 @@
     </header>
 
     <body>
+    <div class="main">
+
         {% block content %}{% endblock %}
+        </div>
+        <div class="links">
+<ul>
+        <p><a href="/articles/getlist">Список статей</a></p>
+
+        <p><a href="/articles/constructor">Конструктор статей</a></p>
+
+
+        <p><a href="/users/getlist">Список пользователей</a></p>
+
+        <p><a href="/uploader/upload">Загрузка файлов (для создателей статей)</a></p>
+
+        {% if g.user and g.user.admin %}
+            <p><a href="/admin/panel">Админ-панель</a></p>
+        {% endif %}
+</ul>
+</div>
     </body>
 
     <footer>

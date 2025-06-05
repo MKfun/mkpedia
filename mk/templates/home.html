@@ -6,27 +6,11 @@
 
 <body>
 {% block content %}
-<div class= main>
         <h2 class="title">МКПедия.</h2>
         <hr />
-        <h3>На данный момент написано {{article_count}} статья/и/ей. Регистрируйтесь и вносите свой вклад!</h3>
+        <h3>На данный момент существует {{formatted_count}}. Регистрируйтесь и вносите свой вклад!</h3>
 <!--         <h4>Важные ссылки</h4> -->
-</div>
-<div class="links">
-<ul>
-        <p><a href="/articles/getlist">Список статей</a></p>
-
-        <p><a href="/articles/constructor">Конструктор статей</a></p>
 
 
-        <p><a href="/users/getlist">Список пользователей</a></p>
-
-        <p><a href="/uploader/upload">Загрузка файлов (для создателей статей)</a></p>
-
-        {% if g.user and g.user["admin"] %}
-            <p><a href="/admin/panel">Админ-панель</a></p>
-        {% endif %}
-</ul>
-</div>
 {% endblock %}
 </body>

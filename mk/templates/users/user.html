@@ -2,13 +2,13 @@
 
 
 {% block content %}
-    <h2>Пользователь {{user["username"]}}</h2>
+    <h2>Пользователь {{user.username}}</h2>
     <h4>
-        {{user["profile_description"]}}
+        {{user.profile_description}}
     </h4>
 
     <p></p>
-    {% if user["admin"] %}<h3> - Администратор сайта</h2>{% endif %}
-    <h3>Совершил {{user["commit_n"]}} редакций статей.</h3>
+    {% if user.admin %}<h3> - Администратор сайта</h2>{% endif %}
+    <h3>Совершил {{formatted_commits}}.</h3>
 
 {% endblock %}
