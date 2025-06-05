@@ -1,6 +1,7 @@
 from flask import *
+from sqlalchemy import or_
 
-from ..db import *
+from ..database import *
 from ..decorators import user_only
 
 from .messages import *
@@ -8,8 +9,6 @@ from .messages import *
 @messages_bp.route("/send", methods=["GET", "POST"])
 @user_only
 def send_message():
-    db = get_db()
-
     if request.method == "POST":
         to_user = request.form["to_user"]
         topic = request.form["topic"]
@@ -18,8 +17,10 @@ def send_message():
         if not to_user or not topic or not data:
             return render_template("error.html", error="Переданы неправильные данные!")
 
-        db.execute("INSERT INTO messages(from_user, to_user, topic, data, answer_to) VALUES(?, ?, ?, ?, NULL)", (g.user["username"], to_user, topic, data))
-        db.commit()
+        message = Message(g.user.username, to_user, topic, data)
+
+        db.session.add(message)
+        db.session.commit()
 
         return redirect("/messages/inbox")
     else:
@@ -30,7 +31,7 @@ def send_message():
         else:
             try:
                 answering_to = int(answering_to)
-                msg = db.execute("SELECT * FROM messages WHERE msgid = ? AND from_user = ? OR to_user = ?", (answering_to, g.user["username"], g.user["username"])).fetchone()
+                msg = Message.query.filter(or_(Message.from_user == g.user.username, Message.to_user == g.user.username)).filter_by(msgid=answering_to).first()
 
                 if not msg:
                     return render_template("error.html", error="Сообщение не ваше или не найдено.")

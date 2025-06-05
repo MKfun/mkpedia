@@ -1,6 +1,8 @@
+from sqlalchemy import or_
+
 from flask import *
 
-from ..db import *
+from ..database import *
 from ..decorators import user_only
 
 from .messages import *
@@ -8,8 +10,5 @@ from .messages import *
 @messages_bp.route("/inbox", methods=["GET"])
 @user_only
 def get_inbox():
-    db = get_db()
-
-    inbox = db.execute("SELECT * FROM messages WHERE from_user = ? OR to_user = ? AND NOT from_user == to_user", (g.user["username"], g.user["username"])).fetchall()
-
+    inbox = Message.query.filter(or_(Message.from_user == g.user.username, Message.to_user == g.user.username)).all()
     return render_template("messages/inbox.html", inbox=inbox)

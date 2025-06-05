@@ -3,7 +3,7 @@ import shutil
 
 from .articles import articles_bp
 from ..decorators import *
-from ..db import *
+from ..database import *
 
 @articles_bp.route("/delete")
 @admin_only
@@ -11,19 +11,15 @@ def delete_article():
     article = request.args.get("article")
 
     if not article:
-        return render_template("error.html", error="Не указан параметри article.")
+        return render_template("error.html", error="Не указан параметр article.")
 
-    db = get_db()
-
-    art = db.execute("SELECT * FROM articles WHERE title = ?", (article,)).fetchone()
+    art = Article.query.filter_by(title=article).first()
     if not art:
-        return render_template("not_found.html"), 404
+        return render_template("error.html", error="Статья не найдена.")
 
-    arts = json.loads(art["data"])[-1]
+    shutil.rmtree(art.to_json()[-1]["fpath"])
 
-    shutil.rmtree(arts["fpath"])
-
-    db.execute("DELETE FROM articles WHERE title = ?", (article,))
-    db.commit()
+    db.session.delete(art)
+    db.session.commit()
 
     return redirect(url_for("articles.listall"))

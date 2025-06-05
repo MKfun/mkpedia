@@ -5,3 +5,4 @@ rm -rf mk/auth/__pycache__/
 rm -rf mk/messages/__pycache__/
 rm -rf mk/random/__pycache__/
 rm -rf mk/uploader/__pycache__/
+rm -rf mk/database/__pycache__/

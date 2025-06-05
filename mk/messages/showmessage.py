@@ -1,6 +1,8 @@
 from flask import *
+from sqlalchemy import or_
 
-from ..db import *
+from ..database import *
+
 from ..decorators import user_only
 
 from .messages import *
@@ -14,16 +16,8 @@ def show_message():
     if not msgid:
         return render_template("error.html", error="Не передан параметр msg_id")
 
-    db = get_db()
+    message = Message.query.filter(or_(Message.from_user == g.user.username, Message.to_user == g.user.username)).filter_by(msgid=msgid).first()
 
-    message = db.execute("SELECT * FROM messages WHERE msgid = ?", (msgid,)).fetchone()
-    answers = db.execute("SELECT * FROM messages WHERE answer_to = ?", (msgid,)).fetchall()
-
-    if not next_answer:
-        if not message:
-            return render_template("not_found.html")
-        return render_template("messages/show_message.html", message=message, answer_count=len(answers))
-    elif next_answer == "1":
-        if not answers:
-            return render_template("not_found.html")
-        return render_template("messages/show_message.html", message=answers[0], answer_count=len(answers)-1)
+    if not message:
+        return render_template("error.html", error="Сообщение не найдено.")
+    return render_template("messages/show_message.html", message=message)

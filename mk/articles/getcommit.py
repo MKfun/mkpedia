@@ -2,16 +2,14 @@ import json
 
 from .articles import articles_bp
 from ..decorators import *
-from ..db import *
+from ..database import *
 
 def get_commit(title: str, n: int):
-    db = get_db()
-
-    art = db.execute("SELECT * FROM articles WHERE title = ?", (title,)).fetchone()
+    art = Article.query.filter_by(title=title).first()
     if not art:
         return ""
 
-    arts = json.loads(art["data"])
+    arts = art.to_json()
 
     if n < 0 or n > len(arts)-1:
         return ""

@@ -1,7 +1,8 @@
 import hashlib
 import functools
 from flask import *
-from ..db import *
+
+from ..database import *
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -14,27 +15,25 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
 
-        db = get_db()
-
         if not username or not password:
             return render_template("error.html", error="Username AND password are required!")
 
         if len(username) > 32 or len(password) > 32:
             return render_template("error.html", error="Слишком длинное имя пользователя или пароль!")
 
-        try:
-            if db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone() is not None or db.execute("SELECT * FROM queue WHERE username = ?", (username,)).fetchone() is not None:
-                return render_template("error.html", error="Имя пользователя уже занято!")
+        if db.session.execute(db.select(User).filter_by(username=username)).first() is not None or db.session.execute(db.select(Queue).filter_by(username=username)).first() is not None:
+            return render_template("error.html", error="Имя пользователя уже занято или есть в очереди!")
 
-            db.execute("INSERT INTO queue VALUES(?, ?)", (username, hashlib.sha256(password.encode("utf-8")).hexdigest()))
-            db.commit()
+        q = Queue(username, password)
 
-            r = make_response(redirect("/auth/login"))
-            r.set_cookie("has_an_account", "1")
+        db.session.add(q)
+        db.session.commit()
 
-            return r
-        except db.IntegrityError:
-            return render_template("error.html", error="Имя пользователя уже есть в очереди! Попробуйте позже!")
+        r = make_response(redirect("/auth/login"))
+        r.set_cookie("has_an_account", "1")
+
+        return r
+
     elif request.method == "GET":
         return render_template("/auth/register.html")
 
@@ -44,26 +43,23 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        db = get_db()
-
         if not username or not password:
             return render_template("error.html", error="Username AND password are required!")
 
         if len(username) > 32 or len(password) > 32:
             return render_template("error.html", error="Слишком длинное имя пользователя или пароль!")
 
-        user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+        h = User.query.filter_by(username=username).first()
 
-        if user is None:
+        if h is None:
             return render_template("error.html", error="User not found!")
 
         pwdhash = hashlib.sha256(password.encode("utf-8")).hexdigest()
 
-        if user["hash"] == pwdhash:
+        if h.pwdhash == pwdhash:
             session.clear()
             session["username"] = username
             session["pwdhash"] = pwdhash
-
         else:
             return render_template("error.html", error="Passwords don`t match!")
 
@@ -84,10 +80,10 @@ def load_user():
     if username is None or pwdhash is None:
         g.user = None
     else:
-        user = get_db().execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+        user = db.session.execute(db.select(User).filter_by(username=username)).first()
         if not user:
             g.user = None
-        elif user["hash"] == pwdhash:
-            g.user = user
+        elif user[0].pwdhash == pwdhash:
+            g.user = user[0]
 
 # todo: хэшировать пароли нах. СДЕЛАНО НАХ.

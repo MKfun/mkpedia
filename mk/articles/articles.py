@@ -4,20 +4,18 @@ import time
 import json
 
 from flask import *
-from ..db import *
+from ..database import *
 
 from ..decorators import user_only
 
 articles_bp = Blueprint("articles", __name__, url_prefix="/articles")
 
 def get_list():
-    db = get_db()
-
-    allarts = db.execute("SELECT * FROM articles").fetchall()
+    allarts = Article.query.all()
     arts = []
 
     for i in allarts:
-        arts.append({"title": i["title"]})
+        arts.append({"title": i.title})
 
     return arts
 

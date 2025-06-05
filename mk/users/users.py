@@ -1,6 +1,6 @@
 from flask import *
 
-from ..db import *
+from ..database import *
 from ..decorators import *
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
@@ -11,25 +11,22 @@ def set_admin(v: bool):
     if not username:
         return render_template("not_found.html")
 
-    db = get_db()
-
-    user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+    user = User.query.filter_by(username=username).first()
 
     if not user:
         return render_template("error.html", error="Пользователь не найден!")
-    elif user["username"] == "root":
-        return render_template("error.html", error="Пошёл нахуй уёбище, ты куда лезешь падла блять очкастая нахуй")
+    elif user.username == "root":
+        return render_template("error.html", error="Пошёл нахуй уёбище, ты куда лезешь падла блять очкастая нахуй.")
 
-    db.execute("UPDATE users SET admin = ? WHERE username = ?", (v, username))
-    db.commit()
+    user.admin = v
+    db.session.commit()
 
     return redirect(url_for("users.user_list"))
 
 @user_bp.route("/getlist")
 @user_only
 def user_list():
-    db = get_db()
-    return render_template("users/user_list.html", users=db.execute("SELECT * FROM users").fetchall())
+    return render_template("users/user_list.html", users=User.query.all())
 
 @user_bp.route("/getuser")
 @user_only
@@ -39,9 +36,7 @@ def get_user():
     if not username:
         return render_template("not_found.html")
 
-    db = get_db()
-
-    user = db.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()
+    user = User.query.filter_by(username=username).first()
 
     return render_template("users/user.html", user=user)
 
@@ -65,9 +60,7 @@ def delete():
     elif username == "root":
         return render_template("error.html", error="IDI NAXUI")
 
-    db = get_db()
-
-    db.execute("DELETE FROM users WHERE username = ?", (username,))
-    db.commit()
+    User.query.filter_by(username=username).delete()
+    db.session.commit()
 
     return redirect(url_for("users.user_list"))

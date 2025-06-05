@@ -5,7 +5,7 @@ import datetime
 
 from .articles import articles_bp
 from ..decorators import *
-from ..db import *
+from ..database import *
 
 from .security import *
 
@@ -30,9 +30,7 @@ def constructor_new():
         if not permittable:
             return render_template("error.html", error=f"Статья содержит запрещённый элемент ({erroneus_tag})")
 
-        db = get_db()
-        art = db.execute("SELECT * FROM articles WHERE title = ?", (title,)).fetchone()
-
+        art = Article.query.filter_by(title=title).first()
         if not art:
             if not comment:
                 comment = "Статья создана."
@@ -48,27 +46,33 @@ def constructor_new():
             with open(fullpath, "w") as f:
                 f.write(data)
 
-            p = [{"fpath": fpath, "body": fullpath, "last_edit_by": g.user["username"], "editdate": datetime.datetime.now().strftime("%I:%M%p в %B %d %Y"), "comment": comment}]
+            p = [{"fpath": fpath, "body": fullpath, "last_edit_by": g.user.username, "editdate": datetime.datetime.now().strftime("%I:%M%p в %B %d %Y"), "comment": comment}]
 
-            db.execute("INSERT INTO articles VALUES(?, ?, ?)", (title, json.dumps(p), g.user["username"]))
-            db.execute("UPDATE users SET commit_n = commit_n+1 WHERE username = ?", (g.user["username"],))
+            article = Article(title, json.dumps(p), g.user.username)
+            user = User.query.filter_by(username=g.user.username).first()
 
-            db.commit()
+            user.commit_n += 1
+
+            db.session.add(article)
+            db.session.commit()
         else:
             if not comment:
                 return render_template("error.html", error="При редактировании статьи комментарий обязателен.")
 
-            artdata = json.loads(art["data"])
+            artdata = art.to_json()
             body = os.path.join(artdata[-1]["fpath"], str(int(time.time())) + ".html",)
-            b = {"fpath": artdata[-1]["fpath"], "body": body, "last_edit_by": g.user["username"], "editdate": datetime.datetime.now().strftime("%I:%M%p в %B %d %Y"), "comment": comment}
+            b = {"fpath": artdata[-1]["fpath"], "body": body, "last_edit_by": g.user.username, "editdate": datetime.datetime.now().strftime("%I:%M%p в %B %d %Y"), "comment": comment}
             artdata.append(b)
             with open(body, "w") as f:
                 f.write(data)
-            db.execute("UPDATE articles SET data = ? WHERE title = ?", (json.dumps(artdata), title))
-            db.execute("UPDATE users SET commit_n = commit_n+1 WHERE username = ?", (g.user["username"],))
 
-            db.commit()
+            c_article = Article.query.filter_by(title=title).first()
+            user = User.query.filter_by(username=g.user.username).first()
 
+            user.commit_n += 1
+            c_article.data = json.dumps(artdata)
+
+            db.session.commit()
         return redirect("/")
     else:
         return render_template("articles/constructor_modern.html")

@@ -1,6 +1,6 @@
 from .articles import articles_bp
 from ..decorators import *
-from ..db import *
+from ..database import *
 
 @articles_bp.route("/edits")
 @user_only
@@ -10,12 +10,10 @@ def get_edits():
     if not article:
         return render_template("error.html", error="Не указан параметр article.")
 
-    db = get_db()
-
-    art = db.execute("SELECT * FROM articles WHERE title = ?", (article,)).fetchone()
+    art = Article.query.filter_by(title=article).first()
     if not art:
         return render_template("not_found.html")
 
-    arts = json.loads(art["data"])
+    arts = art.to_json()
 
     return render_template("articles/article_edits.html", edits=arts)

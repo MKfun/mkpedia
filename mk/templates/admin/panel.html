@@ -27,7 +27,7 @@
 
     <div class="queue-actions">
         {% for user in queue %}
-            <h3>Пользователь {{user["username"]}}</h3>
+            <h3>Пользователь {{user.username}}</h3>
             <button class="accept" onclick="accept('{{user["username"]}}')">Принять</button>
             <button class="reject" onclick="reject('{{user["username"]}}')">Отклонить</button>  
         {% endfor %}
