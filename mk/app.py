@@ -54,6 +54,10 @@ def create_app(test_config=None):
         article_count = getarticleform(len(Article.query.all()))
         return render_template("home.html", formatted_count=article_count)
 
+    #@app.route("/migrate")
+    #def migrate():
+    #    migrate_from_v08(os.path.join(current_app.instance_path, "mkpedik.db"), db)
+
     db.init_app(app)
     return app
 

@@ -14,7 +14,7 @@ admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
 @admin_only
 def render_panel():
     if request.method == "POST":
-        if not g.user["username"] == "root":
+        if not g.user.username == "root":
             return render_template("not_admin.html")
 
         newpwd = request.form["new_password"]
@@ -24,7 +24,7 @@ def render_panel():
 
         pwdhash = hashlib.sha256(newpwd.encode("utf-8")).hexdigest()
 
-        root = db.session.execute(db.select(User).filter_by(username="root")).first()
+        root = User.query.filter_by(username="root").first()
         root.pwdhash = pwdhash
 
         db.session.commit()

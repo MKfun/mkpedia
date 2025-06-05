@@ -6,3 +6,4 @@ rm -rf mk/messages/__pycache__/
 rm -rf mk/random/__pycache__/
 rm -rf mk/uploader/__pycache__/
 rm -rf mk/database/__pycache__/
+rm -rf mk/articles/security/__pycache__
