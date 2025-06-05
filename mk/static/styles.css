@@ -172,6 +172,7 @@ footer {
     display:block;
     color: #aaa;
     bottom:0;
+    z-index:1000;
 }
 
 /* Формы */
@@ -194,17 +195,7 @@ form {
 .ifnot a {
     color: #9a9996;
 }
-form select, form textarea {
-    width: 100%;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: #2a2a2a;
-    color: var(--text-color);
-    transition: border-color var(--transition), background var(--transition);
-}
-input {
+form select, form textarea, form button, input, button {
     background: linear-gradient(to bottom,#242424 0%,#141414 60%);
     border: 1px solid #a2a9b1;
     border-radius: 2px;
@@ -217,14 +208,6 @@ form input:focus, form select:focus, form textarea:focus {
     outline: none;
 }
 
-form button {
-    background: linear-gradient(to bottom,#242424 0%,#141414 60%);
-    border: 1px solid #a2a9b1;
-    border-radius: 2px;
-    border-color: #666666;
-    color:#f2f2f2;
-    line-height: 1.5em;
-}
 
 
 /* Адаптивность */
@@ -302,13 +285,40 @@ li {
     list-style: none;
     list-style-type: none;
 }
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6, p, hp {
     text-align: left;
     color: #b9b7b5;
+    padding-right: 20%;
 }
 #tight-block {
 margin: 0;
 padding: 0;
 line-height: 1;
 font-size: 1rem;
+}
+.wikiimg {
+    position: absolute;
+    top: 10%;
+    right: 1%;
+    display: flex;
+    flex-direction: column;
+    flex-direction: 10px;
+}
+.wikiimg > p {
+    margin-bottom: 60px;
+}
+.articlelist {
+    text-align:left;
+    font-size: 30px;
+}
+.articlelist > div > a:before {
+    font-family: PS3;
+    content: "[ ";
+}
+#data {
+    height: 50px;
+    display:block;
+}
+stub {
+
 }
