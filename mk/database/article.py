@@ -20,6 +20,7 @@ class Article(db.Model):
         self.data = json.dumps(data)
 
     article_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(32))
+
+    title = db.Column(db.String(32), unique=True)
     data = db.Column(db.Text)
     made_by = db.Column(db.String(32))

@@ -80,10 +80,10 @@ def load_user():
     if username is None or pwdhash is None:
         g.user = None
     else:
-        user = db.session.execute(db.select(User).filter_by(username=username)).first()
+        user = User.query.filter_by(username=username).first()
         if not user:
             g.user = None
-        elif user[0].pwdhash == pwdhash:
-            g.user = user[0]
+        elif user.pwdhash == pwdhash:
+            g.user = user
 
 # todo: хэшировать пароли нах. СДЕЛАНО НАХ.

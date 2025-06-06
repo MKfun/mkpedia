@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Обсуждение{% endblock %}
+
+{% block header %}
+    <a href="/articles/article?article={{title}}">Статья</a>
+    <a href="/articles/discussion?article={{title}}">Обсуждение</a>
+{% endblock %}
+
+{% block content %}
+    {% for article in articles %}
+        <h3>#{{article.msgid}} {{article.author}}:</h3>
+        <h4 id="discuss_{{article.msgid}}">{{article.data}}</h4>
+        <button onclick="re('{{article.msgid}}')">Ответить</button>
+        <p></p>
+    {% endfor %}
+
+    <form method="post">
+        <label for="data">Текст</label>
+        <textarea rows="5" cols="4" id="data" name="data"></textarea>
+
+        <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    let s = "/articles/discussion?article={{title}}";
+
+    function re(msgid){
+        document.getElementById("data").value += `RE #${msgid}`;
+    }
+{% endblock %}

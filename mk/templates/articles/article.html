@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 
-{% block header %}
-    {% block title %}{{title}}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block header %} 
+    <a href="/articles/article?article={{title}}">Статья</a>
+    <a href="/articles/discussion?article={{title}}">Обсуждение</a>
 {% endblock %}
 
 {% block content %}
