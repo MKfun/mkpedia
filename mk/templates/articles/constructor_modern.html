@@ -14,7 +14,7 @@
 
             <p></p>
 
-            <input name="data" id="data" type="hidden">  
+            <input name="data" id="data" type="hidden">
 
             <label for="comment">Комментарий к изменению</label>
             <input name="comment" id="comment">
@@ -27,13 +27,20 @@
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ext-language_tools.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ext-language_tools.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/mode-html.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
     let editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.session.setMode("ace/mode/html");
-
+    var HTMLMode = ace.require("ace/mode/html").Mode;
+    editor.setOptions({
+        enableLiveAutocompletion: true,
+        showPrintMargin: false,
+        showInvisibles:true
+    });
+    editor.session.setMode(new HTMLMode());
     let title = document.getElementById("title");
     let data = document.getElementById("data");
 
@@ -41,7 +48,7 @@
 
     editor.session.on("change", () => {data.value = editor.getValue();});
 
-    {% if body is defined %} 
+    {% if body is defined %}
         editor.setValue(`{{body|safe|replace("`", "'")}}`, -1);
     {% endif %}
 </script>
