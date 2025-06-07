@@ -15,8 +15,7 @@ from .messages import *
 from .database import *
 
 dotenv.load_dotenv()
-
-def getarticleform(count):
+def getarticleform(count: int) -> str:
     if count % 100 in (11, 12, 13, 14): return f"{count} статей"
     if count % 10 == 1: return f"{count} статья"
     if count % 10 in (2, 3, 4): return f"{count} статьи"

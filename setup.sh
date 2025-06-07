@@ -5,6 +5,7 @@ if [[ ! -d venv ]]; then
     pip install flask-sqlalchemy
     pip install python-dotenv
     pip install gunicorn
+    pip install bs4
 else
     source venv/bin/activate
 fi

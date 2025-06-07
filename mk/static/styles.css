@@ -30,30 +30,32 @@ body {
 
 /* Шапка */
 #hat {
-background: url("/static/globalheader_bg.jpg");
-background-size:contain;
-padding: 1rem 2rem;
-display: grid;
-border-bottom: 1px solid var(--border-color);
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-position: sticky;
-top: 0;
-z-index: 1000;
-grid-template-columns: 10% 70% 10% 3% 5%;
+    background: url("/static/globalheader_bg.jpg");
+    background-size:contain;
+    padding: 1rem 2rem;
+    display: grid;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    grid-template-columns: 10% 70% 10% 3% 5%;
 }
 
 #hat a {
-color: var(--text-color);
-text-decoration: none;
-font-weight: bold;
-position: relative;
-top:30%;
-transition: color var(--transition);
-height: 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    top:30%;
+    transition: color var(--transition);
+    height: 20px;
 }
+
 .home {
     grid-column: 1;
 }
+
 .home::before {
     font-family: PS3;
     content: "e ";
@@ -62,38 +64,44 @@ height: 20px;
     left: -30px;
     position:absolute;
 }
+
 .reg {
     grid-column: 3;
 
 }
+
 .reg:before {
     font-family: PS3;
     content: "s ";
 }
+
 .login:before {
     font-family: PS3;
     content: "b ";
 }
+
 .inbox {
     grid-column: 4;
     grid-row: 1;
 }
+
 .send {
     grid-column: 5;
     grid-row: 1;
 }
+
 hr {
     border: none;
     border-top: 3px double #333;
     color: #333;
     overflow: visible;
     text-align: left;
-    align-self: left
+    align-self: left;
     height: 5px;
 }
+
 .links {
     height: 100%;
-    width: 80px;
     position: fixed;
     z-index: 1;
     top: 0;
@@ -102,26 +110,30 @@ hr {
     border-right: 1px solid #525252;
     overflow-x: hidden;
     padding-top: 20px;
-    width:200px;
-    z-index:999;
+    width: 200px;
+    z-index: 999;
 }
+
 .links > ul {
     padding-left:0;
     display: block;
     margin-top:50%;
 }
+
 a {
     color: #688ba8;
     text-decoration:none;
-
 }
+
 .links a:before {
     font-family: PS3;
     content: "z ";
 }
+
 a:visited {
     color: #55557f;
 }
+
 .title {
     text-align:left;
     color:white;
@@ -131,29 +143,31 @@ a:visited {
 .login {
     grid-column: 6;
 }
+
 #hat a::after {
-content: "";
-position: absolute;
-width: 0%;
-height: 2px;
-left: 0;
-bottom: -2px;
-transition: text-shadow 0.3s ease;
-background: var(--accent-color);
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    left: 0;
+    bottom: -2px;
+    transition: text-shadow 0.3s ease;
+    background: var(--accent-color);
 }
+
 .main {
     margin-left: 250px;
 }
+
 #hat a:hover {
-transition: text-shadow 0.3s ease;
-text-shadow: 0 0 5px #ffffff;
+    transition: text-shadow 0.3s ease;
+    text-shadow: 0 0 5px #ffffff;
 }
 
 #hat a:hover::after {
-text-shadow: 0 0 5px #ffffff;
-transition: text-shadow 0.3s ease;
+    text-shadow: 0 0 5px #ffffff;
+    transition: text-shadow 0.3s ease;
 }
-
 
 /* Контент */
 body > *:not(header):not(footer) {
@@ -169,10 +183,11 @@ footer {
     border-top: 1px solid var(--border-color);
     font-size: 0.9rem;
     position: fixed;
-    display:block;
+    display: block;
     color: #aaa;
-    bottom:0;
-    z-index:1000;
+    bottom: 0;
+    z-index: 1000;
+    width: 200px;
 }
 
 /* Формы */
@@ -195,6 +210,7 @@ form {
 .ifnot a {
     color: #9a9996;
 }
+
 form select, form textarea, form button, input, button {
     background: linear-gradient(to bottom,#242424 0%,#141414 60%);
     border: 1px solid #a2a9b1;
@@ -207,8 +223,6 @@ form select, form textarea, form button, input, button {
 form input:focus, form select:focus, form textarea:focus {
     outline: none;
 }
-
-
 
 /* Адаптивность */
 @media (max-width: 768px) {
@@ -234,7 +248,6 @@ h1, h2, h3, h4, h5 {
     transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-
 p {
     margin: 0.1rem 0;
     line-height: 1.4;
@@ -242,21 +255,21 @@ p {
 
 /* === Контейнер редактора === */
 #editor-container {
-width: 95%;
-position: relative;
-margin-bottom: 2em;
+    width: 95%;
+    position: relative;
+    margin-bottom: 2em;
 }
 
 #editor {
-position: absolute;
-width: 100%;
-height: 100em;
-background-color: #1e1e1e;
-border: 1px solid #333;
-border-radius: 10px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-overflow: auto;
-position: inherit;
+    position: absolute;
+    width: 100%;
+    height: 100em;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    position: inherit;
 }
 
 /* === Мобильная адаптация для редактора === */
@@ -273,6 +286,7 @@ position: inherit;
     font-size: 0.95rem;
     }
 }
+
 .list {
     display: table;
     border: 1px solid #525252;
@@ -280,45 +294,62 @@ position: inherit;
     padding: 8px 8px 5px 8px;
     font-size: 95%;
 }
+
 li {
     list-style-image: none;
     list-style: none;
     list-style-type: none;
 }
+
 h1, h2, h3, h4, h5, h6, p, hp {
     text-align: left;
     color: #b9b7b5;
-    padding-right: 20%;
 }
+
 #tight-block {
-margin: 0;
-padding: 0;
-line-height: 1;
-font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-size: 1rem;
 }
-.wikiimg {
-    position: absolute;
-    top: 10%;
-    right: 1%;
+
+.wiki_img {
+    float: right;
+    clear: right;
+    place-items: start;
     display: flex;
     flex-direction: column;
     flex-direction: 10px;
+    margin-left: 20px;
 }
-.wikiimg > p {
-    margin-bottom: 60px;
+
+.page-wrapper img {
+    width: 300px;
 }
+
+.wiki_img > p {
+    margin-bottom: 40px;
+}
+
+.last_wiki_img {
+    margin-bottom: 0px !important;
+}
+
 .articlelist {
     text-align:left;
     font-size: 30px;
 }
+
 .articlelist > div > a:before {
     font-family: PS3;
     content: "[ ";
 }
+
 #data {
     height: 50px;
     display:block;
 }
+
 stub {
 
 }

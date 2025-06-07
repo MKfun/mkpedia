@@ -1,3 +1,6 @@
+from bs4 import BeautifulSoup, NavigableString
+from os import system
+
 from .articles import articles_bp
 from ..decorators import *
 
@@ -41,4 +44,42 @@ def get_article():
             if want_raw_body is not None and want_raw_body == "1":
                 return f.read()
             else:
-                return render_template("articles/article.html", title=art.title, article=f.read(), last_edit_by=arts[n]["last_edit_by"])
+                file = f.read()
+                soup = BeautifulSoup(file, "html.parser")
+
+                wiki_imgs = [] # Массив с тэгами картинок (img)
+                for img in soup.find_all("img"):
+                    wiki_imgs.append(img.extract())
+                # Удаление картинок из основного маркапа и сохранение
+                # их в массив для дальнейших махинаций
+
+                if len(wiki_imgs) > 0:
+                # Проверка есть ли картинки
+                    wiki_img = soup.new_tag("div", attrs={"class": "wiki_img"})
+                    # Объект тэга панели картинок (div class="wiki_img")
+                    
+                    for img in wiki_imgs:
+                        # img - непосредственно сам тэг картинки
+                        if "alt" in img.attrs.keys():
+                            desc = img.attrs["alt"]
+                            del img.attrs["alt"]
+                        else:
+                            desc = ""
+
+                        wiki_img.append(img)
+                        wiki_img.append(soup.new_tag("p", string=desc))
+
+                    wiki_img.contents[-1].attrs["class"] = "last_wiki_img"
+                    # Добавить последнему объекту в панели этот класс,
+                    # чтобы отключить ему margin
+
+                    soup.insert(0, wiki_img)
+                    # Соединение этого месива воедино
+                    
+                    html = str(soup)
+                else:
+                # Если картинок нет, то вакханалия отменяется и передаётся
+                # просто файл как есть
+                    html = file
+
+                return render_template("articles/article.html", title=art.title, article=html, last_edit_by=arts[n]["last_edit_by"])

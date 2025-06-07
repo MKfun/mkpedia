@@ -1,4 +1,7 @@
 .venv
 .article_data/
 .old/
-mk/users/__pycache__/
+__pycache__
+*.db
+venv
+instance
