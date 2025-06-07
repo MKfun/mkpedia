@@ -39,7 +39,8 @@ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 position: sticky;
 top: 0;
 z-index: 1000;
-grid-template-columns: 10% 70% 10% 3% 5%;
+grid-template-columns: 10% 67% 10% 3% 3% 8%;
+height:43px;
 }
 
 #hat a {
@@ -64,7 +65,9 @@ height: 20px;
 }
 .reg {
     grid-column: 3;
-
+}
+.login {
+    grid-column:6;
 }
 .reg:before {
     font-family: PS3;
@@ -94,8 +97,7 @@ hr {
 .links {
     height: 100%;
     width: 80px;
-    position: fixed;
-    z-index: 1;
+    position: absolute;
     top: 0;
     left: 0;
     background-color: #262626;
@@ -245,6 +247,7 @@ p {
 width: 95%;
 position: relative;
 margin-bottom: 2em;
+text-align: left;
 }
 
 #editor {
@@ -253,8 +256,6 @@ width: 100%;
 height: 100em;
 background-color: #1e1e1e;
 border: 1px solid #333;
-border-radius: 10px;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 overflow: auto;
 position: inherit;
 }
