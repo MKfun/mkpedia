@@ -1,5 +1,4 @@
-from bs4 import BeautifulSoup, NavigableString
-from os import system
+from bs4 import BeautifulSoup
 
 from .articles import articles_bp
 from ..decorators import *
