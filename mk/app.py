@@ -59,15 +59,16 @@ def create_app(test_config=None):
     #    migrate_from_v08(os.path.join(current_app.instance_path, "mkpedik.db"), db)
 
     db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+
+        root = User.query.filter_by(username="root").first()
+        if not root:
+            root = User("root", "toor", True)
+            db.session.merge(root)
+            db.session.commit()
+
     return app
 
 app = create_app()
-
-with app.app_context():
-    db.create_all()
-
-    root = User.query.filter_by(username="root").first()
-    if not root:
-        root = User("root", "toor", True)
-        db.session.add(root)
-        db.session.commit()

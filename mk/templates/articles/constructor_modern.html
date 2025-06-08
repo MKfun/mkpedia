@@ -39,14 +39,14 @@
                 theme: 'vs-dark',
                 automaticLayout: false
             });
-            function saveI() {
-            data.value = editor.getValue();
-        }
-        document.getElementById('submit').addEventListener('click', () => {
-        title.value = `{{title}}`
-        data.value = editor.getValue();
-        alert(data.value)});
-        });
 
+            function saveI() {
+                data.value = editor.getValue();
+            }
+
+            document.getElementById('submit').addEventListener('click', () => {
+                data.value = editor.getValue();
+            });
+        });
     </script>
 
